@@ -1,9 +1,9 @@
 import configparser
-from datetime import timedelta, datetime
+from datetime import timedelta
 
 
 config = configparser.ConfigParser()
-config.read("env.cfg")
+config.read('env.cfg')
 
 SECRET_KEY = config['flask']['secret']
 

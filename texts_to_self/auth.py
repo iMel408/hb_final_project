@@ -51,7 +51,7 @@ def login():
             session.clear()
             session['user_id'] = user.id
             flash('Logged In')
-            return redirect(url_for('application.user_page', id=user.id))
+            return redirect(url_for('main.user_page', id=user.id))
 
         flash(error)
 
