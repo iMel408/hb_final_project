@@ -1,0 +1,5 @@
+env.cfg
+/venv
+/.idea
+texts_to_self/__pycache__/
+
