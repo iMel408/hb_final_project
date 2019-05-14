@@ -1,5 +1,7 @@
-celery = make_celery(app)
+from .model import *
+from . import make_celery
 
+celery = make_celery(app)
 
 @celery.task()
 def run_jobs():

@@ -1,4 +1,3 @@
-
 from flask import Blueprint, render_template
 from texts_to_self.auth import login_required
 from texts_to_self.model import *

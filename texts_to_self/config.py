@@ -24,7 +24,7 @@ CELERY_BROKER_URL = 'redis://localhost:6379',
 CELERY_RESULT_BACKEND = 'redis://localhost:6379',
 CELERYBEAT_SCHEDULE = {
     'run_every_hour': {
-        'task': 'server.run_jobs',
+        'task': '__ini__.run_jobs',
         'schedule': timedelta(seconds=60 * 60)
     },
 }
