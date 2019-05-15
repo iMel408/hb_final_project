@@ -4,9 +4,11 @@ from twilio.twiml.messaging_response import MessagingResponse
 from texts_to_self.model import db, connect_to_db, Job, Event
 from datetime import datetime
 from texts_to_self.tasks import make_celery
+from texts_to_self.server import create_app
 
-
+app = create_app()
 celery = make_celery(app)
+
 
 @celery.task()
 def run_jobs():
@@ -40,11 +42,13 @@ def run_jobs():
 
         db.session.commit()
 
+
 # CLIENT = Client(env.TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN)
-CLIENT = Client(app.config['TWILIO_ACCOUNT_SID', 'TWILIO_AUTH_TOKEN'])
+CLIENT = Client(app.config['TWILIO_ACCOUNT_SID'], app.config['TWILIO_AUTH_TOKEN'])
+
 
 @app.route('/outgoing', methods=['GET', 'POST'])
-def send_sms(to, body, job_id, from_=env.FROM_PHONE):
+def send_sms(to, body, job_id, from_=app.config['FROM_PHONE']):
     """create sms event"""
 
     message = CLIENT.messages.create(
@@ -104,3 +108,13 @@ def receive_reply():
     print(resp)
 
     return str(resp)
+
+
+# if __name__ == "__main__":
+#     from texts_to_self.server import create_app
+#
+#     create_app()
+#     connect_to_db(app)
+#     print("Connected to DB.")
+#
+#     db.create_all()
