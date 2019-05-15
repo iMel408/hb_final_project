@@ -1,7 +1,11 @@
-from .model import *
-from . import make_celery
+from texts_to_self.server import make_celery
+from datetime import datetime
+from twilio.rest import Client
+from twilio.twiml.messaging_response import MessagingResponse
+from texts_to_self.model import db, Job, Event
 
 celery = make_celery(app)
+
 
 @celery.task()
 def run_jobs():
